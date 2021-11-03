@@ -24,6 +24,9 @@ def efficientFrontier(log_returns):
     # however, the example use monthly mean return
     mon_mean_ret = log_returns.mean()
 
+    #  pd.set_option("display.max_rows", None, "display.max_columns", None)
+    pd.set_option("display.max_rows", None)
+
     print("\nmean monthly return :")
     print(mon_mean_ret)
     max_ret = np.amax(mon_mean_ret)
@@ -118,8 +121,16 @@ def efficientFrontier(log_returns):
     opts = sco.minimize(min_sharpe, number_of_assets * [1/number_of_assets], method='SLSQP', bounds=bnds, constraints=cons)
     # opts['x'].round(3)
 
-    # 碼農的測試碼
-    print(opts['x'].round(3))
+    #  碼農的測試碼
+    #  print(opts['x'].round(3))
+    #  print(statistics(opts['x'].round(3)))
+
+    #  weight in max. sharpe ratio
+    maxSharpe = opts['x'].round(3);
+    for a in range(len(maxSharpe)):
+        print(maxSharpe[a], end=", ");
+
+    print()
     print(statistics(opts['x'].round(3)))
 
 

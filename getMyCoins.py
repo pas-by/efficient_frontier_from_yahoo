@@ -5,7 +5,7 @@
 #   description :
 #
 #         begin : 2021-09-24
-# last modified : 2021-09-24
+# last modified : 2021-11-03
 
 import csv
 import pandas as pd
@@ -25,9 +25,12 @@ print(myCoins)
 returnMatrix = pd.DataFrame()
 
 for code in myCoins:
-    returnMatrix = pd.concat(
-        [returnMatrix, yfin_test001.returnOfLastYear(code)], axis=1
-    )
+    print(code)
+    retLastYr = yfin_test001.returnOfLastYear(code)
+    print(len(retLastYr.index))
+
+    if(len(retLastYr.index)==12):
+        returnMatrix = (pd.concat([returnMatrix, retLastYr], axis=1))
 
 # 程罪員的測試碼
 # print(returnMatrix);
