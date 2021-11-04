@@ -21,3 +21,7 @@ for code in myStockList:
     #  write to csv file
     closeLastYr.to_csv(code);
 
+
+for code in myStockList:
+    closeLastYr = pd.read_csv(code);
+    print(closeLastYr);
