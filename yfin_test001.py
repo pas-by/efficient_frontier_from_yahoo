@@ -145,13 +145,42 @@ def efficientFrontier(log_returns):
     plt.show()
 
 
+def closePriceOfLastYear(stock_code):
+    a = yf.Ticker(stock_code)
+    history = a.history(period="12mo", interval="1mo")
+
+    # 碼農的測試碼
+    print(history)
+
+    rows_2be_del = []
+
+    for index in range(history.index.size):
+        close_price = history.iloc[index, 3]
+        if math.isnan(close_price):
+            # 將股息加進下月的股價
+            history.iloc[index + 1, 3] += history.iloc[index, 5]
+            rows_2be_del.append(index)
+        else:
+            # 碼農的測試碼
+            # print(close_price);
+            pass
+
+    # remove the 'dividend events'
+    adjusted_prices = history.drop(history.index[rows_2be_del], axis=0)
+    adjusted_prices = adjusted_prices["Close"]
+
+    #  程罪員的測試碼
+    #  print(adjusted_prices)
+
+    return adjusted_prices;
+
 def returnOfLastYear(stock_code):
 
     # assign the numpy log function to a new function called ln
     ln = np.log
 
     a = yf.Ticker(stock_code)
-    history = a.history(period="13mo", interval="1mo")
+    history = a.history(period="12mo", interval="1mo")
 
     # 碼農的測試碼
     print(history)

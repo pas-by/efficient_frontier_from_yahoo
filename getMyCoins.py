@@ -11,7 +11,8 @@ import csv
 import pandas as pd
 import yfin_test001
 
-file = open("myCryptoList003.txt")
+#  file = open("myCryptoList003.txt")
+file = open("my_hk_stocks.txt")
 csvreader = csv.reader(file)
 
 myCoins = []
