@@ -10,18 +10,31 @@
 import pandas as pd
 import yfin_test001
 
+#  碼農的測試碼
 myStockList = ['0001.HK', '0002.HK'];
+
+stockDF =  pd.read_csv('filter_result_20211103.csv');
+myStockList = stockDF['a'].values.tolist();
 
 for code in myStockList:
     print(code)
-    closeLastYr = yfin_test001.closePriceOfLastYear(code)
-    print(len(closeLastYr.index))
-    print(closeLastYr)
+    try:
+        closeLastYr = yfin_test001.closePriceOfLastYear(code)
+        print(len(closeLastYr.index))
+        print(closeLastYr)
 
-    #  write to csv file
-    closeLastYr.to_csv(code);
+        #  write to csv file
+        closeLastYr.to_csv('./temp/' + code);
+    except:
+        pass;
 
 
 for code in myStockList:
-    closeLastYr = pd.read_csv(code);
-    print(closeLastYr);
+    try:
+        closeLastYr = pd.read_csv('./temp/' + code);
+        print(closeLastYr);
+    except:
+        pass;
+
+#  碼農的測試碼
+print(stockDF);
