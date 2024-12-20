@@ -1,17 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#  File Name   : yfin_test001.py
-#  description : 列出某股票的歷史數據。
-#        begin :  2021-09-21
-# last modified : 2021-10-17
+#    File Name   : yfin_test001.py
+#    description : 列出某股票的歷史數據。
+#          begin :  2021-09-21
+#  last modified :  2024-04-07
+
+"""
+安裝 Yahoo finance Python module
+pip install yfinance #Yahoo Finance python API
+"""
 
 import yfinance as yf
 import math
 import numpy as np
 import pandas as pd
 import scipy.optimize as sco
-import matplotlib.pyplot as plt
+#  import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 
 def efficientFrontier(log_returns):
@@ -126,9 +132,16 @@ def efficientFrontier(log_returns):
     #  print(statistics(opts['x'].round(3)))
 
     #  weight in max. sharpe ratio
+    print();
+    print("weight values in max. sharpe ratio");
     maxSharpe = opts['x'].round(3);
     for a in range(len(maxSharpe)):
-        print(maxSharpe[a], end=", ");
+        #  print(maxSharpe[a], end=", ");
+        print(a+1, "\t", end="");
+        if maxSharpe[a] >= 0.001 :
+            print(maxSharpe[a]);
+        else :
+            print("0");
 
     print()
     print(statistics(opts['x'].round(3)))
@@ -147,7 +160,7 @@ def efficientFrontier(log_returns):
 
 def closePriceOfLastYear(stock_code):
     a = yf.Ticker(stock_code)
-    history = a.history(period="12mo", interval="1mo")
+    history = a.history(period="1y", interval="1mo")
 
     # 碼農的測試碼
     print(history)
@@ -180,7 +193,7 @@ def returnOfLastYear(stock_code):
     ln = np.log
 
     a = yf.Ticker(stock_code)
-    history = a.history(period="12mo", interval="1mo")
+    history = a.history(period="1y", interval="1mo")
 
     # 碼農的測試碼
     print(history)
@@ -226,6 +239,6 @@ def returnOfLastYear(stock_code):
 
     return logReturn
 
-
-# 程罪員的測試碼
-# print(pd.concat([pd.DataFrame(), returnOfLastYear('0011.HK'), returnOfLastYear('0005.HK')], axis=1));
+if __name__ == "__main__":
+    #  程罪員的測試碼
+    print(pd.concat([pd.DataFrame(), returnOfLastYear('AZO'), returnOfLastYear('AAPL')], axis=1));

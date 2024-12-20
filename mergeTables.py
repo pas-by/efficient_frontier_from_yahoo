@@ -44,7 +44,9 @@ def computeLogReuturn(code, priceTable):
 sourceDir = './out';
 sourceDir += '/';
 
-file = open(sourceDir + "myList002.txt");  #  list of code name
+#  list of code name
+file = open(sourceDir + "myList002.txt");
+#  file = open("myCryptoList.txt");
 csvreader = csv.reader(file);
 
 stocks = []

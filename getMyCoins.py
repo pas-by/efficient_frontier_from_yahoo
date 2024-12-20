@@ -5,14 +5,17 @@
 #   description :
 #
 #         begin : 2021-09-24
-# last modified : 2021-11-03
+# last modified : 2023-08-05
 
 import csv
 import pandas as pd
 import yfin_test001
 
+file = open("stocks_2024.txt")
 #  file = open("myCryptoList003.txt")
-file = open("my_hk_stocks.txt")
+#  file = open("my_hk_stocks.txt")
+#  file = open("my_hk_stocks_01.txt")
+
 csvreader = csv.reader(file)
 
 myCoins = []
@@ -30,10 +33,10 @@ for code in myCoins:
     retLastYr = yfin_test001.returnOfLastYear(code)
     print(len(retLastYr.index))
 
-    if(len(retLastYr.index)==12):
+    if(len(retLastYr.index)>1):
         returnMatrix = (pd.concat([returnMatrix, retLastYr], axis=1))
 
 # 程罪員的測試碼
-# print(returnMatrix);
+print(returnMatrix);
 
 yfin_test001.efficientFrontier(returnMatrix)
