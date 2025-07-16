@@ -5,13 +5,13 @@
 #   description :
 #
 #         begin : 2021-09-24
-# last modified : 2023-08-05
+# last modified : 2025-02-25
 
 import csv
 import pandas as pd
 import yfin_test001
 
-file = open("stocks_2024.txt")
+file = open("stocks_2025.txt")
 #  file = open("myCryptoList003.txt")
 #  file = open("my_hk_stocks.txt")
 #  file = open("my_hk_stocks_01.txt")

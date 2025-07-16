@@ -4,7 +4,7 @@
 #    File Name   : yfin_test001.py
 #    description : 列出某股票的歷史數據。
 #          begin :  2021-09-21
-#  last modified :  2024-04-07
+#  last modified :  2025-07-16
 
 """
 安裝 Yahoo finance Python module
@@ -198,18 +198,24 @@ def returnOfLastYear(stock_code):
     # 碼農的測試碼
     print(history)
 
-    rows_2be_del = []
+    rows_2be_del = [];
+    totalDividends = 0.0;
 
     for index in range(history.index.size):
         close_price = history.iloc[index, 3]
+        totalDividends += history.iloc[index, 5];
+
         if math.isnan(close_price):
-            # 將股息加進下月的股價
-            history.iloc[index + 1, 3] += history.iloc[index, 5]
+            #  將股息加進下月的股價
+            #  history.iloc[index + 1, 3] += history.iloc[index, 5]
             rows_2be_del.append(index)
         else:
             # 碼農的測試碼
             # print(close_price);
             pass
+
+    # add the total dividend to the last month
+    history.iloc[history.index.size - 1, 3] += totalDividends;
 
     # remove the 'dividend events'
     adjusted_prices = history.drop(history.index[rows_2be_del], axis=0)
@@ -234,8 +240,8 @@ def returnOfLastYear(stock_code):
     logReturn = pd.Series(logReturn)
     logReturn = logReturn.rename(stock_code)
 
-    # remove the last row
-    logReturn = logReturn.drop(logReturn.index[logReturn.index.size - 1], axis=0)
+    #  remove the last row
+    #  logReturn = logReturn.drop(logReturn.index[logReturn.index.size - 1], axis=0)
 
     return logReturn
 
