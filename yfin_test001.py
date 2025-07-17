@@ -185,6 +185,9 @@ def returnOfLastYear(stock_code):
             # print(close_price);
             pass
 
+    #  pay for 30% tax for the dividend
+    totalDividends *= 0.7;
+
     # add the total dividend to the last month
     history.iloc[history.index.size - 1, 3] += totalDividends;
 
