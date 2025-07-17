@@ -29,9 +29,10 @@ print(myCoins)
 returnMatrix = pd.DataFrame()
 
 for code in myCoins:
-    print(code)
+    print(f"stock code {code}");
+
     retLastYr = yfin_test001.returnOfLastYear(code)
-    print(len(retLastYr.index))
+    print("length of series : ", len(retLastYr.index));
 
     if(len(retLastYr.index)>1):
         returnMatrix = (pd.concat([returnMatrix, retLastYr], axis=1))

@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 #    File Name   : yfin_test001.py
-#    description : 列出某股票的歷史數據。
+#    description : 計算效率前緣。
 #          begin :  2021-09-21
-#  last modified :  2025-07-16
+#  last modified :  2025-07-17
 
 """
 安裝 Yahoo finance Python module
@@ -62,6 +62,7 @@ def efficientFrontier(log_returns):
         pret = np.dot(weights, mon_mean_ret)
         return pret
 
+    #  boundaries for each asset
     bnds = tuple((0, 1) for x in range(number_of_assets))
 
     # target returns to be solved
@@ -70,7 +71,7 @@ def efficientFrontier(log_returns):
     #  target risk to be solved
     tvols = []
 
-    # 碼農的測試碼
+    # 程序猿的測試碼
     # print(min_ret);
     # print(max_ret);
     # print(target_return);
@@ -157,36 +158,6 @@ def efficientFrontier(log_returns):
     plt.legend()
     plt.show()
 
-
-def closePriceOfLastYear(stock_code):
-    a = yf.Ticker(stock_code)
-    history = a.history(period="1y", interval="1mo")
-
-    # 碼農的測試碼
-    print(history)
-
-    rows_2be_del = []
-
-    for index in range(history.index.size):
-        close_price = history.iloc[index, 3]
-        if math.isnan(close_price):
-            # 將股息加進下月的股價
-            history.iloc[index + 1, 3] += history.iloc[index, 5]
-            rows_2be_del.append(index)
-        else:
-            # 碼農的測試碼
-            # print(close_price);
-            pass
-
-    # remove the 'dividend events'
-    adjusted_prices = history.drop(history.index[rows_2be_del], axis=0)
-    adjusted_prices = adjusted_prices["Close"]
-
-    #  程罪員的測試碼
-    #  print(adjusted_prices)
-
-    return adjusted_prices;
-
 def returnOfLastYear(stock_code):
 
     # assign the numpy log function to a new function called ln
@@ -217,7 +188,7 @@ def returnOfLastYear(stock_code):
     # add the total dividend to the last month
     history.iloc[history.index.size - 1, 3] += totalDividends;
 
-    # remove the 'dividend events'
+    # remove the 'EMPTY' events
     adjusted_prices = history.drop(history.index[rows_2be_del], axis=0)
     adjusted_prices = adjusted_prices["Close"]
 
